@@ -1,5 +1,10 @@
 # Ecommerce Boilerplate
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php)](backend/composer.json)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](frontend/package.json)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)](docker-compose.yml)
+
 A production-ready, full-stack ecommerce boilerplate demonstrating Domain-Driven Design (DDD), CQRS-lite, and Clean Architecture patterns.
 
 **Stack:** Laravel 11 · Next.js 14 · MySQL 8 · Redis · Docker · Laravel Passport · Spatie Permissions

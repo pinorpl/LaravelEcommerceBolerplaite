@@ -1,0 +1,137 @@
+{
+  "nav": {
+    "products": "Products",
+    "cart": "Cart",
+    "admin": "Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Welcome to Ecommerce Boilerplate",
+    "cta": "Browse All Products",
+    "featured": "Featured Products",
+    "inStock": "{count} in stock",
+    "outOfStock": "Out of stock"
+  },
+  "products": {
+    "title": "Products",
+    "search": "Search products...",
+    "searchBtn": "Search",
+    "clear": "Clear",
+    "showing": "Showing {from}–{to} of {total} products",
+    "noResults": "No products found",
+    "noResultsSearch": "No products found for \"{search}\"",
+    "inStock": "{count} in stock",
+    "outOfStock": "Out of stock",
+    "loadError": "Failed to load products. Please try again."
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "adding": "Adding...",
+    "outOfStock": "Out of Stock",
+    "qty": "Qty:",
+    "added": "Added to cart!",
+    "addError": "Could not add to cart. Please try again.",
+    "notFound": "Product not found"
+  },
+  "login": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "loading": "Signing in...",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register",
+    "demo": "Demo: admin@example.com / password"
+  },
+  "register": {
+    "title": "Create Account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Register",
+    "loading": "Creating account...",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Sign in"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty.",
+    "browse": "Browse Products",
+    "summary": "Order Summary",
+    "total": "Total:",
+    "shippingAddress": "Shipping Address",
+    "shippingPlaceholder": "123 Main St, City, Country",
+    "placeOrder": "Place Order",
+    "continue": "Continue Shopping",
+    "orderSuccess": "Order #{id} placed successfully!",
+    "status": "Status:",
+    "loading": "Loading cart...",
+    "addressRequired": "Please enter a shipping address."
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "tabs": {
+      "products": "Products",
+      "users": "Users"
+    },
+    "products": {
+      "title": "Products ({count})",
+      "newProduct": "+ New Product",
+      "loading": "Loading products...",
+      "name": "Name",
+      "price": "Price",
+      "stock": "Stock",
+      "active": "Active",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this product?",
+      "newTitle": "New Product",
+      "editTitle": "Edit Product",
+      "description": "Description",
+      "activeLabel": "Active (visible to buyers)",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+    "users": {
+      "title": "Users ({count})",
+      "loading": "Loading users...",
+      "name": "Name",
+      "email": "Email",
+      "roles": "Roles",
+      "joined": "Joined"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "name": "Name",
+    "email": "Email",
+    "roles": "Roles",
+    "memberSince": "Member since",
+    "signOut": "Sign Out",
+    "loading": "Loading..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again.",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "validation":        "Please check the form and correct any errors.",
+    "unauthenticated":   "Please sign in to continue.",
+    "forbidden":         "You do not have permission to do that.",
+    "notFound":          "The requested item was not found.",
+    "tooManyRequests":   "Too many attempts. Please wait a moment.",
+    "methodNotAllowed":  "This action is not allowed.",
+    "serviceUnavailable":"The service is temporarily unavailable.",
+    "server":            "An unexpected error occurred. Please try again.",
+    "invalidCredentials":"Invalid email or password.",
+    "network":           "Network error. Check your connection and try again.",
+    "unknown":           "Something went wrong. Please try again."
+  }
+}

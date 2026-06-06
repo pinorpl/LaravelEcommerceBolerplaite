@@ -1,0 +1,205 @@
+services:
+  # ─────────────────────────────────────────
+  # PHP-FPM (Laravel 11)
+  # ─────────────────────────────────────────
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: ecommerce_php
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - APP_ENV=local
+      # [SEC] Secrets loaded from root .env — never hardcoded here
+      - APP_KEY=${APP_KEY}
+      - APP_DEBUG=true   # set false in production
+      - APP_URL=http://localhost
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=ecommerce
+      - DB_USERNAME=ecommerce
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - QUEUE_CONNECTION=redis
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailpit
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+      - MAIL_FROM_ADDRESS=noreply@ecommerce.local
+      - MAIL_FROM_NAME="Ecommerce Boilerplate"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # Queue Worker (Laravel)
+  # ─────────────────────────────────────────
+  laravel-queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: ecommerce_queue
+    restart: unless-stopped
+    working_dir: /var/www/html
+    command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=60"]
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - APP_ENV=local
+      - APP_KEY=${APP_KEY}
+      - APP_DEBUG=false
+      - APP_URL=http://localhost
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=ecommerce
+      - DB_USERNAME=ecommerce
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - QUEUE_CONNECTION=redis
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailpit
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+      - MAIL_FROM_ADDRESS=noreply@ecommerce.local
+      - MAIL_FROM_NAME="Ecommerce Boilerplate"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # Nginx – reverse proxy
+  # ─────────────────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: ecommerce_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - nextjs
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # MySQL 8 — port NOT exposed to host in this config
+  # Uncomment 3306 only for local DB clients during development
+  # ─────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce_mysql
+    restart: unless-stopped
+    # ports:       # [SEC] Do not expose DB port to host in production
+    #   - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "ecommerce", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # Redis — port NOT exposed to host
+  # ─────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce_redis
+    restart: unless-stopped
+    # ports:        # [SEC] Do not expose Redis to host in production
+    #   - "6379:6379"
+    # Password is optional in dev. When REDIS_PASSWORD is set, add --requirepass.
+    # We use the default entrypoint — no custom command needed for dev (no password).
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # Mailpit – DEV ONLY. Remove in production.
+  # ─────────────────────────────────────────
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: ecommerce_mailpit
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8025:8025"   # [SEC] Bind to localhost only
+      - "1025:1025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - ecommerce_net
+
+  # ─────────────────────────────────────────
+  # Next.js (development with hot-reload)
+  # ─────────────────────────────────────────
+  nextjs:
+    build:
+      context: .
+      dockerfile: docker/nextjs/Dockerfile
+    container_name: ecommerce_nextjs
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost/api
+      - INTERNAL_API_URL=http://nginx/api
+      # [SEC] Passport secret loaded from root .env — never NEXT_PUBLIC_*
+      - PASSPORT_CLIENT_ID=${PASSPORT_CLIENT_ID}
+      - PASSPORT_CLIENT_SECRET=${PASSPORT_CLIENT_SECRET}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=http://localhost:3000
+    depends_on:
+      - php
+    networks:
+      - ecommerce_net
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  ecommerce_net:
+    driver: bridge

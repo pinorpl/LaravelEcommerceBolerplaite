@@ -1,0 +1,137 @@
+{
+  "nav": {
+    "products": "Productos",
+    "cart": "Carrito",
+    "admin": "Admin",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión"
+  },
+  "home": {
+    "title": "Bienvenido al Ecommerce Boilerplate",
+    "cta": "Ver todos los productos",
+    "featured": "Productos destacados",
+    "inStock": "{count} en stock",
+    "outOfStock": "Agotado"
+  },
+  "products": {
+    "title": "Productos",
+    "search": "Buscar productos...",
+    "searchBtn": "Buscar",
+    "clear": "Limpiar",
+    "showing": "Mostrando {from}–{to} de {total} productos",
+    "noResults": "No se encontraron productos",
+    "noResultsSearch": "No se encontraron productos para \"{search}\"",
+    "inStock": "{count} en stock",
+    "outOfStock": "Agotado",
+    "loadError": "Error al cargar productos. Intenta de nuevo."
+  },
+  "product": {
+    "addToCart": "Agregar al carrito",
+    "adding": "Agregando...",
+    "outOfStock": "Agotado",
+    "qty": "Cant.:",
+    "added": "¡Agregado al carrito!",
+    "addError": "No se pudo agregar al carrito. Intenta de nuevo.",
+    "notFound": "Producto no encontrado"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "loading": "Iniciando sesión...",
+    "noAccount": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate",
+    "demo": "Demo: admin@example.com / password"
+  },
+  "register": {
+    "title": "Crear cuenta",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "submit": "Registrarse",
+    "loading": "Creando cuenta...",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Inicia sesión"
+  },
+  "cart": {
+    "title": "Tu carrito",
+    "empty": "Tu carrito está vacío.",
+    "browse": "Ver productos",
+    "summary": "Resumen del pedido",
+    "total": "Total:",
+    "shippingAddress": "Dirección de envío",
+    "shippingPlaceholder": "Calle 123, Ciudad, País",
+    "placeOrder": "Realizar pedido",
+    "continue": "Seguir comprando",
+    "orderSuccess": "¡Pedido #{id} realizado con éxito!",
+    "status": "Estado:",
+    "loading": "Cargando carrito...",
+    "addressRequired": "Por favor ingresa una dirección de envío."
+  },
+  "admin": {
+    "title": "Panel de administración",
+    "tabs": {
+      "products": "Productos",
+      "users": "Usuarios"
+    },
+    "products": {
+      "title": "Productos ({count})",
+      "newProduct": "+ Nuevo producto",
+      "loading": "Cargando productos...",
+      "name": "Nombre",
+      "price": "Precio",
+      "stock": "Stock",
+      "active": "Activo",
+      "actions": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar este producto?",
+      "newTitle": "Nuevo producto",
+      "editTitle": "Editar producto",
+      "description": "Descripción",
+      "activeLabel": "Activo (visible para compradores)",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "cancel": "Cancelar"
+    },
+    "users": {
+      "title": "Usuarios ({count})",
+      "loading": "Cargando usuarios...",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "roles": "Roles",
+      "joined": "Registro"
+    }
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "roles": "Roles",
+    "memberSince": "Miembro desde",
+    "signOut": "Cerrar sesión",
+    "loading": "Cargando..."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error. Intenta de nuevo.",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "errors": {
+    "validation":        "Por favor revisa el formulario y corrige los errores.",
+    "unauthenticated":   "Por favor inicia sesión para continuar.",
+    "forbidden":         "No tienes permiso para realizar esta acción.",
+    "notFound":          "El recurso solicitado no fue encontrado.",
+    "tooManyRequests":   "Demasiados intentos. Por favor espera un momento.",
+    "methodNotAllowed":  "Esta acción no está permitida.",
+    "serviceUnavailable":"El servicio no está disponible temporalmente.",
+    "server":            "Ocurrió un error inesperado. Por favor intenta de nuevo.",
+    "invalidCredentials":"Correo electrónico o contraseña incorrectos.",
+    "network":           "Error de red. Verifica tu conexión e intenta de nuevo.",
+    "unknown":           "Algo salió mal. Por favor intenta de nuevo."
+  }
+}
